@@ -1,0 +1,16 @@
+git init
+
+git add . or git add <file_name>
+
+git remote add origin "http-url" --- link github
+
+git commit -m ""
+
+git push -u origin master --- push code to the GitHub
+
+git status
+
+if authenticate ask:
+	git config --global user.email "userName@gmail.com"
+	
+	git config --global user.name "User-Name"
