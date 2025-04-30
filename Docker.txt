@@ -1,0 +1,18 @@
+write code inside Dockerfile
+FROM node:alpine 
+COPY ./<folder_name> (Note: Folder name should be in lowercase)
+CMD node /folder_name/<JS_file.name>  --like script.js
+
+Terminal path -- {..../folder_name}
+>docker --version
+>node JS_file.name
+>docker build -t folder_name .
+>docker images
+
+** Some Basic Questions That Can Be Asked:
+ 1. What is docker?
+ 2. What is use of docker?
+        3. What is docker container?
+        4. What do you mean by docker images?
+ 5. Which commands have you used to implement this assignment? 
+ 6. Explain the steps to create docker images.

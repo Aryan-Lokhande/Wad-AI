@@ -1,0 +1,51 @@
+terminal commands-- 
+ 1. npm --version     - It is used to check the version of nodejs 
+ 2. npm install @angular/cli@latest  - It is used to install angular cli
+ 3. ng new project-name      - It is used to create new angular project
+***write project codes then
+ 4. ng serve        - It is used to compile the code (Make sure you are in correct directory before executing this command, i.e .../project-name) 
+
+Path =>
+  project-name
+	|- scr
+	    |- app
+
+app.component.html {remove all content and write}
+<h1>{{title}}</h1>
+
+<input type="text" #name placeholder="Enter your name" name = "name">
+<input type="text" #address placeholder="Enter your address" name = "address">
+<input type="text" #contact placeholder="Enter your contact" name = "contact">
+<input type="text" #email placeholder="Enter your email" name = "email">
+<input type="password" #password placeholder="Enter your password" password = "password">
+
+
+<button (click) = "getValue(name.value, address.value, contact.value, email.value)">Register</button>
+
+<h1>Your Register Data</h1>
+<p>name: {{displayname}}</p>
+<p>Address: {{displayaddress}}</p>
+<p>Contact: {{displaycontact}}</p>
+<p>Email-Id: {{displayemail}}</p>
+
+
+app.component.ts
+ change title = "Register Form"
+ displayname="";
+ displayaddress="";
+ displaycontact="";
+ displayemail="";
+
+getValue(name:string, add:string, contact:string, email:string){
+    this.displayname = name;
+    this.displayaddress = add;
+    this.displaycontact = contact;
+    this.displayemail = email;
+}
+
+
+** Some Basic Questions That Can Be Asked:
+ 1. What is AngularJS?
+ 2. What are the features of AngularJS?
+ 3. Which commands have you used to implement this assignment? 
+ 4. Explain the code that you have written.
