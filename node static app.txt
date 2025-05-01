@@ -1,0 +1,53 @@
+server.js
+const express = require('express');
+const path = require('path');
+
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+// Serve static files from the 'public' directory
+app.use(express.static(path.join(__dirname, 'public')));
+
+// Default route
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
+// Start the server
+app.listen(PORT, () => {
+  console.log(`Server is running at http://localhost:${PORT}`);
+});
+
+
+public/index.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Static Website</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Hello from Static Website!</h1>
+  <p>This site is served by a Node.js server using Express.</p>
+  <script src="script.js"></script>
+</body>
+</html>
+
+public/style.css
+/* public/style.css */
+body {
+   font-family: Arial, sans-serif;
+   background-color: #f4f4f4;
+   text-align: center;
+   padding: 50px;
+}
+
+
+How to start
+npm init
+
+npm i express
+
+npm start or node server.js

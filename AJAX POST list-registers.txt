@@ -1,0 +1,211 @@
+
+list.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Registered Users</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h2>Registered Users</h2>
+    <ul id="userList"></ul>
+  </div>
+
+  <script>
+    let users = JSON.parse(localStorage.getItem('users')) || [];
+    const list = document.getElementById('userList');
+
+    function renderUsers() {
+      list.innerHTML = '';
+      users.forEach((user, index) => {
+        const li = document.createElement('li');
+        li.innerHTML = `
+          <strong>${user.firstName} ${user.secondName} ${user.lastName}</strong><br>
+          Email: ${user.email} <br>
+          Phone: ${user.phone} <br>
+          Gender: ${user.gender} <br>
+          Address: ${user.address}, ${user.city}, ${user.state}, ${user.country} - ${user.zipcode}
+          <br><button class="delete-btn" onclick="deleteUser(${index})">Delete</button>
+        `;
+        list.appendChild(li);
+      });
+    }
+
+    function deleteUser(index) {
+      if (confirm("Are you sure you want to delete this user?")) {
+        users.splice(index, 1);
+        localStorage.setItem('users', JSON.stringify(users));
+        renderUsers(); // refresh the list
+      }
+    }
+
+    renderUsers();
+  </script>
+</body>
+</html>
+register.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>User Registration</title>
+  <link rel="stylesheet" href="style.css">
+  <script defer src="register.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h2>Registration Form</h2>
+    <form id="registerForm">
+      <input type="text" id="firstName" placeholder="First Name" required>
+      <input type="text" id="secondName" placeholder="Second Name">
+      <input type="text" id="lastName" placeholder="Last Name" required>
+      <input type="email" id="email" placeholder="Email" required>
+      <input type="password" id="password" placeholder="Password" required>
+      <input type="text" id="phone" placeholder="Phone Number" required>
+      <input type="text" id="city" placeholder="City" required>
+      <input type="text" id="state" placeholder="State" required>
+      <input type="text" id="country" placeholder="Country" required>
+      <input type="text" id="zipcode" placeholder="Zip Code" required>
+      <select id="gender" required>
+        <option value="" disabled selected>Select Gender</option>
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+        <option value="Other">Other</option>
+      </select>
+      <textarea id="address" placeholder="Address" rows="3" required></textarea>
+
+      <button type="submit">Register</button>
+    </form>
+  </div>
+</body>
+</html>
+
+register.js
+document.getElementById('registerForm').addEventListener('submit', function (e) {
+  e.preventDefault();
+
+  const user = {
+    firstName: document.getElementById('firstName').value,
+    secondName: document.getElementById('secondName').value,
+    lastName: document.getElementById('lastName').value,
+    email: document.getElementById('email').value,
+    password: document.getElementById('password').value,
+    phone: document.getElementById('phone').value,
+    city: document.getElementById('city').value,
+    state: document.getElementById('state').value,
+    country: document.getElementById('country').value,
+    zipcode: document.getElementById('zipcode').value,
+    gender: document.getElementById('gender').value,
+    address: document.getElementById('address').value
+  };
+
+  let users = JSON.parse(localStorage.getItem('users')) || [];
+  users.push(user);
+  localStorage.setItem('users', JSON.stringify(users));
+
+  // Simulated AJAX POST
+  const xhr = new XMLHttpRequest();
+  xhr.open("POST", "https://jsonplaceholder.typicode.com/posts", true);
+  xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+  xhr.send(JSON.stringify(user));
+
+  alert("Registration successful!");
+  window.location.href = "list.html";
+});
+
+style.css
+/* General page background */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(to right, #e3f2fd, #ffffff);
+  margin: 0;
+  padding: 0;
+}
+
+/* Center container */
+.container {
+  max-width: 600px;
+  margin: 60px auto;
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Headings */
+h2 {
+  text-align: center;
+  color: #0d47a1;
+  margin-bottom: 25px;
+}
+
+/* Input fields, selects, textareas */
+input, select, textarea {
+  width: 100%;
+  padding: 10px;
+  margin-top: 8px;
+  margin-bottom: 16px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 16px;
+}
+
+/* Button style */
+button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 20px;
+  background-color: #1565c0;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  background-color: #0d47a1;
+}
+
+/* List of users */
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  background: #e3f2fd;
+  margin-bottom: 10px;
+  padding: 15px;
+  border-left: 5px solid #1565c0;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  transition: transform 0.2s ease;
+}
+
+button.delete-btn {
+  background-color: #e53935;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  margin-top: 10px;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+}
+button.delete-btn:hover {
+  background-color: #b71c1c;
+}
+
+
+How to do
+- Open register.html in browser.
+
+- Fill in the form and submit.
+
+- User data is stored in local storage.
+
+- Page redirects to list.html and shows registered users.
